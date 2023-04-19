@@ -11,8 +11,12 @@
 
 
 
-    if (isset($lengthPass)) {
+    if (isset($lengthPass) && ($lengthPass >= 8)) {
+
         $password = generatePassword($charactersArray, $lengthPass);
+        session_start();
+        $_SESSION['password'] = $password;
+        header('Location: ./redirect.php');
     }
 
 
@@ -47,9 +51,7 @@
         </form>
         <br>
         <?php 
-        if (isset($password)  && (int)strlen($password) >= 8) {
-            echo " <h1> La tua Password Generata è: $password </h1> " ;
-        } else {
+        if (isset($_GET['passLength'])  ) {
             echo "<h1> Numero Caratteri Insufficienti (Minimo 8)</h1>";
         }
     ?>
