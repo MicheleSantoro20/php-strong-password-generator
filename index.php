@@ -16,6 +16,7 @@
                     $passwordGen[]=$character;
                 }
             }
+            $i++;
         }
         implode(" ", $passwordGen);
         return $passwordGen;
