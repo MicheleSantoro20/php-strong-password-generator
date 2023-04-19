@@ -1,22 +1,28 @@
 <?php
-    if (isset($_GET['passLength']) && strlen($_GET['passlength']) < 8) {
+    if (isset($_GET['passLength'])) {
         $lengthPass = $_GET['passLength'];
-    } else {
-        echo '<h1>Numero di caratteri insufficienti</h1>';
     }
 
     $characters = 'ABCDEFGHIJKLMNOPQRSUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.-_$&£?ìè#òç*+^';
     $charactersArray = str_split($characters);
 
     function generatePassword ($charactersArray, $lengthPass) {
-        $password=[];
+        $passwordGen=[];
         $i=0;
         while($i < $lengthPass) {
             $randomChar=rand(0,count($charactersArray));
             foreach ($charactersArray as $character => $value){
-                
+                if ($randomChar == $character) {
+                    $passwordGen[]=$character;
+                }
             }
         }
+        implode(" ", $passwordGen);
+        return $passwordGen;
+    }
+
+    if (isset($lengthPass)) {
+        $password = generatePassword($charactersArray, $lengthPass);
     }
 
 
@@ -43,6 +49,12 @@
         </div>
         <button type="submit" class="btn btn-primary">Genera Password</button>
     </form>
+
+    <?php 
+        if (isset($password)) {
+            echo $password;
+        }
+    ?>
 </body>
 
 </html>
